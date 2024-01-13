@@ -21,20 +21,19 @@ def get_match(matchid):
 user_name = input("Enter your name: ")
 
 summoner_json = get_summoner_data(user_name)
-print(f"{summoner_json['name']}'s puuid is {summoner_json['puuid']}")
-print(summoner_json)
 
-# puuid = summoner_json['puuid']
-# matchlist_data = get_matchlist_data(puuid)
-# print()
-# match_json = get_match(matchlist_data[0])
+puuid = summoner_json['puuid']
+
+matchlist_data = get_matchlist_data(puuid)
+
+match_json = get_match(matchlist_data[0])
+
 #
-# with open('data.json', 'w') as json_file:
-#     json.dump(match_json, json_file)
-
-# for matchid in matchlist_data:
-#     print(matchid)
-#     match_json = get_match(matchid)
-#     print(match_json)
-#     with open('data.json', 'w') as json_file:
-#         json.dump(match_json, json_file)
+if(match_json["teams"][0]["win"]=="Fail"):
+        for i in range(5,10):
+            if(match_json["participantIdentities"][i]["player"]["summonerName"].replace(" ","").lower()==summonerName):
+                result = "승리"
+    if(match_json["teams"][0]["win"]=="Win"):
+        for i in range(0,5):
+            if(data["participantIdentities"][i]["player"]["summonerName"].replace(" ","").lower()==summonerName):
+                result = "승리"
