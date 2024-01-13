@@ -35,7 +35,7 @@ def get_match_time(time_duration):
     return minutes, seconds
 
 def main():
-    st.title("League of Legends Summoner Data Viewer")
+    st.title("League of Legends")
 
     user_name = st.text_input("Enter user name:")
     if st.button("Get Match Data"):
@@ -65,6 +65,7 @@ def main():
             st.text(f"This match duration is {minutes} minutes and {seconds} seconds")
 
             # 매치 데이터(포지션/챔피언/킬/데스/어시/CS 등)
+            st.subheader("MatchData")
             participants = match_json['info']['participants']
             match_data = []
             for participant in participants:
@@ -104,6 +105,7 @@ def main():
             st.dataframe(match_df)
 
             # 팀 데이터
+            st.subheader("TeamData")
             teams = match_json['info']['teams']
             team_data = []
             for team in teams:
@@ -131,7 +133,12 @@ def main():
             team_df = pd.DataFrame(team_data)
             st.dataframe(team_df)
 
-            # st.json(match_json)
+            # if st.button("Show_match_json"):
+            #     st.json(match_json)
+
+    if st.button("Show_summoner_json"):
+        summoner_json_use_name = get_summoner_data_by_name(user_name)
+        st.json(summoner_json_use_name)
 
 
 # Run the app
